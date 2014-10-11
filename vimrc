@@ -9,12 +9,12 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle "wookiehangover/jshint.vim"
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundle 'edkolev/tmuxline.vim'
 NeoBundle 'epeli/slimux'
 NeoBundle 'godlygeek/tabular'
+NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'jamessan/vim-gnupg'
 NeoBundle 'jtratner/vim-flavored-markdown'
 NeoBundle 'moll/vim-node'
@@ -23,16 +23,11 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'edkolev/tmuxline.vim'
 NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-pastie'
-NeoBundle 'tpope/vim-ragtag'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'xolox/vim-misc'
 NeoBundle 'zweifisch/pipe2eval'
 
 call neobundle#end()
@@ -41,8 +36,8 @@ filetype plugin indent on
 
 NeoBundleCheck
 
-" Behaviour
 syntax on
+
 set autochdir
 set autoindent
 set autoread
@@ -54,15 +49,13 @@ set tabstop=8
 set wildmenu
 set wildmode=longest,list,full
 
-" Searching
 set ignorecase
 set incsearch
 set showmatch
 set smartcase
 
-" UI
-set background=light
 let &colorcolumn=join(range(81,999),",")
+set background=light
 set cursorline
 set formatoptions=tcq
 set laststatus=2
@@ -85,36 +78,29 @@ set title
 set ttyfast
 set visualbell
 
-" Backups
 set history=1000
-set undolevels=1000
 set nobackup
 set noswapfile
 set undodir=$HOME/.vimundo
+set undolevels=1000
 
-" Buffers
 set autowrite
 set clipboard=unnamed
 set hidden
 set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
 
-" Theme/colors
 colorscheme Tomorrow
 highlight Normal ctermbg=NONE
-highlight ColorColumn ctermbg=255
 let g:lightline = {
   \ 'colorscheme': 'Tomorrow',
   \ }
 let g:tmuxline_powerline_separators = 0
 
-
-" Mouse handling
 set mouse=a
 if exists('$TMUX')  " Support resizing in tmux
   set ttymouse=xterm2
 endif
 
-" Fast <ESC>
 set ttimeoutlen=10
 augroup FastEscape
     au!
@@ -122,24 +108,19 @@ augroup FastEscape
     au InsertLeave * set timeoutlen=1000
 augroup END
 
-" Paste fix
 map <F2> :set paste<CR>i
 imap <F2> <ESC>:set paste<CR>i<Right>
 au InsertLeave * set nopaste
 
-" Slimux 
 map <C-c><C-c> :SlimuxREPLSendLine<CR>
 vmap <C-c><C-c> :SlimuxREPLSendSelection<CR>
-" Javascript/Node.js REPL enters multi-line mode with Ctrl+v
 function! SlimuxPre_javascript(target_pane)
   call system("tmux send-keys -t " . a:target_pane . " C-v")
 endfunction
-" Exit multi-line REPL mode with Ctrl+d
 function! SlimuxPost_javascript(target_pane)
   call system("tmux send-keys -t " . a:target_pane . " C-d")
 endfunction
 
-" Shortcuts
 let mapleader = ','
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -150,17 +131,10 @@ nmap <leader><space> :call whitespace#strip_trailing()<CR>
 nmap <leader>c <Plug>Kwbd
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
-" Forgot sudo
 cmap w!! %!sudo tee > /dev/null %
 
-" Markdown
 augroup markdown
   au!
   au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 augroup END
-
-" Local customisations
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
 
