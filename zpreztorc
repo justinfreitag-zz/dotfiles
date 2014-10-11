@@ -41,10 +41,6 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'pattern' \
   'cursor' \
   'root'
-zstyle ':prezto:module:syntax-highlighting' styles \
-  'builtin' 'bg=white' \
-  'command' 'bg=white' \
-  'function' 'bg=white'
 
 zstyle ':prezto:module:terminal' auto-title 'yes'
 zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
