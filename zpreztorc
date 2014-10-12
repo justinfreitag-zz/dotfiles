@@ -31,7 +31,7 @@ zstyle ':prezto:module:gnu-utility' prefix 'g'
 
 zstyle ':prezto:module:pacman' frontend 'yaourt'
 
-zstyle ':prezto:module:prompt' theme 'sorin'
+zstyle ':prezto:module:prompt' theme 'pure'
 
 zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_rsa_github' 'id_rsa_bitbucket'
 
