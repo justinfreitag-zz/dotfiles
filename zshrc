@@ -13,4 +13,6 @@ setopt NUMERIC_GLOB_SORT
 setopt RM_STAR_WAIT
 
 alias tmux='tmux -2'
+alias fixtime='sudo hwclock --hctosys'
+
 
